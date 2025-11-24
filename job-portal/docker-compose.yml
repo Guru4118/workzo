@@ -1,0 +1,17 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017
+
+  frontend:
+    build: ./frontend/next-js-app
+    ports:
+      - "3000:3000"
+
+  mongo:
+    image: mongo:5
+    ports:
+      - "27017:27017"
