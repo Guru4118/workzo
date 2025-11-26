@@ -1,0 +1,12 @@
+# ===========================================
+# Job Scrapers Dependencies
+# ===========================================
+
+# HTTP Client
+requests>=2.31.0
+
+# Date parsing
+python-dateutil>=2.8.2
+
+# Environment variables
+python-dotenv>=1.0.0

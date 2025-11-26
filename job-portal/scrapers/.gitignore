@@ -1,4 +1,32 @@
+# ===========================================
+# Git Ignore - Job Portal Scrapers
+# ===========================================
+
+# Virtual environments
 .venv
 venv
+ENV/
+env/
+
+# Python
 __pycache__/
-*.pyc       
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Environment files
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Logs
+*.log
+
+# Note: The archive/ directory contains old scrapers that
+# violated ToS of various sites (Indeed, LinkedIn, etc.)
+# They are kept for reference only and should NOT be used.       

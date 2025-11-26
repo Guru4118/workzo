@@ -17,7 +17,15 @@ class Settings(BaseSettings):
     # Server
     HOST: str = "0.0.0.0"
     PORT: int = 8000
-    ALLOWED_ORIGINS: List[str] = ["http://localhost:3000"]
+    ALLOWED_ORIGINS: List[str] = [
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "http://localhost:3002",
+        "http://localhost:3003",
+        "http://localhost:3100",
+        "http://localhost:5173",
+        "http://localhost:5174",
+    ]
 
     # MongoDB
     MONGO_URI: str = Field(..., description="MongoDB connection string")
