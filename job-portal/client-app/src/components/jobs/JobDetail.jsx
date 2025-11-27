@@ -11,6 +11,9 @@ import Spinner from '../ui/Spinner'
 import { formatDate, formatSource, getSourceColor } from '../../utils/formatters'
 
 const JobDetail = ({ job, isLoading, error }) => {
+  /* --------------------------------
+     Loading State
+  -------------------------------- */
   if (isLoading) {
     return (
       <div className="flex justify-center py-12">
@@ -19,11 +22,18 @@ const JobDetail = ({ job, isLoading, error }) => {
     )
   }
 
+  /* --------------------------------
+     Error State
+  -------------------------------- */
   if (error) {
     return (
       <div className="card p-8 text-center">
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">Error loading job</h2>
-        <p className="text-gray-600 mb-4">{error.message || 'Something went wrong.'}</p>
+        <h2 className="text-xl font-semibold text-gray-900 mb-2">
+          Error loading job
+        </h2>
+        <p className="text-gray-600 mb-4">
+          {error.message || 'Something went wrong.'}
+        </p>
         <Link to="/jobs" className="btn-primary">
           Back to Jobs
         </Link>
@@ -31,11 +41,18 @@ const JobDetail = ({ job, isLoading, error }) => {
     )
   }
 
+  /* --------------------------------
+     Not Found
+  -------------------------------- */
   if (!job) {
     return (
       <div className="card p-8 text-center">
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">Job not found</h2>
-        <p className="text-gray-600 mb-4">This job listing may have been removed.</p>
+        <h2 className="text-xl font-semibold text-gray-900 mb-2">
+          Job not found
+        </h2>
+        <p className="text-gray-600 mb-4">
+          This job listing may have been removed.
+        </p>
         <Link to="/jobs" className="btn-primary">
           Back to Jobs
         </Link>
@@ -43,6 +60,9 @@ const JobDetail = ({ job, isLoading, error }) => {
     )
   }
 
+  /* --------------------------------
+     Job Fields
+  -------------------------------- */
   const {
     title,
     company,
@@ -52,12 +72,12 @@ const JobDetail = ({ job, isLoading, error }) => {
     source,
     scraped_at,
     salary,
-    url,
-    tags,
+    apply_url,
+    tags = [],
   } = job
 
   return (
-    <div>
+    <div className="max-w-4xl mx-auto">
       {/* Back Button */}
       <Link
         to="/jobs"
@@ -67,13 +87,19 @@ const JobDetail = ({ job, isLoading, error }) => {
         Back to Jobs
       </Link>
 
-      <div className="card">
-        {/* Header */}
+      <div className="card overflow-hidden">
+        {/* --------------------------------
+            Header
+        -------------------------------- */}
         <div className="p-6 border-b border-gray-100">
           <div className="flex justify-between items-start gap-4 flex-wrap">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">{title}</h1>
-              <p className="text-xl text-primary-600 font-medium mb-4">{company}</p>
+              <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                {title}
+              </h1>
+              <p className="text-xl text-primary-600 font-medium mb-4">
+                {company}
+              </p>
 
               {/* Meta Info */}
               <div className="flex flex-wrap gap-4 text-gray-600">
@@ -83,12 +109,14 @@ const JobDetail = ({ job, isLoading, error }) => {
                     {location}
                   </span>
                 )}
+
                 {job_type && (
                   <span className="flex items-center gap-1.5">
                     <HiOutlineBriefcase className="h-5 w-5" />
                     {job_type}
                   </span>
                 )}
+
                 <span className="flex items-center gap-1.5">
                   <HiOutlineClock className="h-5 w-5" />
                   Posted {formatDate(scraped_at)}
@@ -97,7 +125,9 @@ const JobDetail = ({ job, isLoading, error }) => {
 
               {/* Salary */}
               {salary && (
-                <p className="text-lg text-green-600 font-semibold mt-4">{salary}</p>
+                <p className="text-lg text-green-600 font-semibold mt-4">
+                  {salary}
+                </p>
               )}
             </div>
 
@@ -108,10 +138,14 @@ const JobDetail = ({ job, isLoading, error }) => {
           </div>
         </div>
 
-        {/* Tags */}
-        {tags && tags.length > 0 && (
+        {/* --------------------------------
+            Tags
+        -------------------------------- */}
+        {tags.length > 0 && (
           <div className="px-6 py-4 border-b border-gray-100">
-            <h3 className="text-sm font-medium text-gray-700 mb-2">Skills & Tags</h3>
+            <h3 className="text-sm font-medium text-gray-700 mb-2">
+              Skills & Tags
+            </h3>
             <div className="flex flex-wrap gap-2">
               {tags.map((tag, index) => (
                 <Badge key={index} color="gray">
@@ -122,20 +156,28 @@ const JobDetail = ({ job, isLoading, error }) => {
           </div>
         )}
 
-        {/* Description */}
+        {/* --------------------------------
+            Job Description
+        -------------------------------- */}
         <div className="p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Job Description</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Job Description
+          </h3>
           <div
             className="prose prose-gray max-w-none"
-            dangerouslySetInnerHTML={{ __html: description || 'No description available.' }}
+            dangerouslySetInnerHTML={{
+              __html: description || 'No description available.',
+            }}
           />
         </div>
 
-        {/* Apply Button */}
-        {url && (
+        {/* --------------------------------
+            Apply Button
+        -------------------------------- */}
+        {apply_url && (
           <div className="px-6 pb-6">
             <a
-              href={url}
+              href={apply_url}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary inline-flex items-center gap-2"

@@ -1,5 +1,10 @@
 import { Link } from 'react-router-dom'
-import { HiOutlineLocationMarker, HiOutlineBriefcase, HiOutlineClock } from 'react-icons/hi'
+import {
+  HiOutlineLocationMarker,
+  HiOutlineBriefcase,
+  HiOutlineClock,
+  HiOutlineExternalLink
+} from 'react-icons/hi'
 import Badge from '../ui/Badge'
 import { formatDate, truncate, formatSource, getSourceColor } from '../../utils/formatters'
 
@@ -14,6 +19,7 @@ const JobCard = ({ job }) => {
     source,
     scraped_at,
     salary,
+    apply_url
   } = job
 
   return (
@@ -56,12 +62,28 @@ const JobCard = ({ job }) => {
             </p>
           )}
 
-          {/* Salary if available */}
-          {salary && (
-            <p className="text-green-600 font-medium text-sm mt-2">
-              {salary}
-            </p>
-          )}
+          {/* Footer */}
+          <div className="mt-4 flex items-center justify-between">
+            {salary && (
+              <p className="text-green-600 font-medium text-sm">
+                {salary}
+              </p>
+            )}
+
+            {/* ✅ Apply Button */}
+            {apply_url && (
+              <a
+                href={apply_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-800"
+              >
+                Apply
+                <HiOutlineExternalLink className="h-4 w-4" />
+              </a>
+            )}
+          </div>
         </div>
 
         {/* Source Badge */}
